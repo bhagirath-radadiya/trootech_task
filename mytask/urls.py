@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include([
         path('', include('categoryapp.urls')),
+        path('', include('productapp.urls')),
     ])),
 ]

@@ -17,3 +17,21 @@ class CategorySerializer(serializers.ModelSerializer):
             return obj.parent_category.category
         else:
             return None
+
+
+class CategoryV2Serializer(serializers.ModelSerializer):
+    sub_category = serializers.SerializerMethodField('get_sub_category')
+
+    class Meta:
+        model = Category
+        fields = ['id', 'category', 'sub_category']
+        extra_kwargs = {
+            'sub_category': {'read_only': True}
+        }
+
+    def get_sub_category(self, obj):
+        queryset = obj.category_parent_category.all()
+        if queryset:
+            return CategoryV2Serializer(queryset, many=True).data
+        else:
+            return None

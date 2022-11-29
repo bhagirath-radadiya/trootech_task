@@ -21,5 +21,6 @@ urlpatterns = [
     path('api/', include([
         path('', include('categoryapp.urls')),
         path('', include('productapp.urls')),
+        path('', include('userapp.urls')),
     ])),
 ]
